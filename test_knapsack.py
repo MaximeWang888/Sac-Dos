@@ -97,7 +97,7 @@ class TestGreedySmall:
 
 class TestGreedyMedium:
     def test_solve(self):
-        sack = knapsack(100)
+        sack = Knapsack(100)
         objects_dict = get_medium_objects_dict()
         filled_sack = solve_knapsack_greedy(knapsack=sack, objects_dict=objects_dict)
         assert filled_sack.get_value_and_weight(objects_dict) == (118000455, 100)
@@ -115,7 +115,7 @@ class TestGreedyMedium:
             (1, 40081, 1),
         ])
     def test_solve_medium(self, capacity, weight, value):
-        sack = knapsack(capacity)
+        sack = Knapsack(capacity)
         objects_dict = get_medium_objects_dict()
         filled_sack = solve_knapsack_greedy(knapsack=sack, objects_dict=objects_dict)
         assert filled_sack.get_value_and_weight(objects_dict) == (weight, value)
@@ -126,7 +126,7 @@ class TestGreedyMedium:
         "capacity, weight, value",
         [(1000000, 203653539, 20737), (100000000, 203671588, 1020746)])
     def test_solve_big(self, capacity, weight, value):
-        sack = knapsack(capacity)
+        sack = Knapsack(capacity)
         objects_dict = get_medium_objects_dict()
         filled_sack = solve_knapsack_greedy(knapsack=sack, objects_dict=objects_dict)
         assert filled_sack.get_value_and_weight(objects_dict) == (weight, value)
