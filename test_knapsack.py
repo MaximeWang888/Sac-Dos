@@ -2,6 +2,7 @@ import json
 import pytest
 
 from knapsack.Knapsack import Knapsack
+from knapsack.solve_kanpsack_greedy import solve_knapsack_greedy
 
 
 def get_small_objects_dict(capacity=60):
