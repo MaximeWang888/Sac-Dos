@@ -4,41 +4,36 @@ class Knapsack:
         self.capacity = capacity
         self.content = []
 
-    def get_value_and_weight(self, objects_dict):
-        valeur = 0
-        poid = 0
+    def get_value_and_weight(self, objects_dict) -> (int, int):
+        total_value = 0
+        total_weight = 0
 
         for content in self.content:
-            value, weight = objects_dict.get(content);
+            value, weight = objects_dict.get(content)
 
-            if poid + weight <= self.capacity:
-                  valeur += value
-                  poid += weight
+            if total_weight + weight <= self.capacity:
+                total_value += value
+                total_weight += weight
 
-        return valeur, poid
+        return total_value, total_weight
 
     def print_content(self, objects_dict) -> None:
 
-        valeurTotal = 0
-        weightTotal = 0
-        nbObjects = 0
-        affichage = ""
+        total_value = 0
+        total_weight = 0
+        total_content = 0
+        print_content = ""
 
         for content in self.content:
-          nbObjects += 1
-          affichage += content + " "
-          value, weight = objects_dict.get(content);
-          affichage +=  str(value) + " " + str(weight)
-          valeurTotal += value
-          weightTotal += weight
-          affichage += "\n"
+            value, weight = objects_dict.get(content)
+            total_content += 1
+            total_value += value
+            total_weight += weight
 
-        affichage += "Le sac a "
-        affichage += str(nbObjects) + " "
-        affichage += "objets, pour une valeur de "
-        affichage += str(valeurTotal)
-        affichage += " et un poids de "
-        affichage += str(weightTotal)
-        affichage += "/" + str(self.capacity)
+            print_content += content + " " + str(value) + " " + str(weight) + "\n"
 
-        print(affichage)
+        print_content += "Le sac a " + str(total_content) + " objets, pour une valeur de " \
+                         + str(total_value) + " et un poids de " + str(total_weight) + "/" \
+                         + str(self.capacity)
+
+        print(print_content)
