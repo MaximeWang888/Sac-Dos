@@ -1,7 +1,3 @@
-# Ignore everything
-*
-
-# But not these files...
-!src/*
-!tests/test_knapsack.py
-!.gitignore
+__pycache__/
+*.py[cod]
+*$py.class
