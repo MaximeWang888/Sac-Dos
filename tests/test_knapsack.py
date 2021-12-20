@@ -32,6 +32,10 @@ def get_medium_objects_dict():
         data = json.load(file)
     return data["stuff_dd"]
 
+def get_medium_objects_dict2():
+    with open("../src/resouces/stuff2.json") as file:
+        data = json.load(file)
+    return data["stuff2"]
 
 class TestUtils:
     def test_print(self, capsys):
@@ -131,3 +135,41 @@ class TestGreedyMedium:
         assert filled_sack.get_value_and_weight(objects_dict) == (weight, value)
         if capacity > 5:
             assert "Oeil et Main de Vecna" in sack.content
+
+    def test_tset(self):
+        # driver code
+        val = []
+        wt = []
+        for value in list(get_medium_objects_dict2().values()):
+            val.append(value[0])
+            wt.append(value[1])
+
+        sack = Knapsack(30)
+        W = sack.capacity
+        n = len(val)
+
+        # We initialize the matrix with -1 at first.
+        t = [[-1 for i in range(W + 1)] for j in range(n + 1)]
+
+        def knapsack(sack, wt, val, n):
+            W = sack.capacity
+            # base conditions
+            if n == 0 or W == 0:
+                return 0
+            if t[n][W] != -1:
+                return t[n][W]
+
+            # choice diagram code
+            if wt[n - 1] <= W:
+                sack.setCapa(sack.capacity - wt[n-1])
+                t[n][W] = max(
+                    val[n - 1] + knapsack(
+                        sack, wt, val, n - 1),
+                    knapsack(sack, wt, val, n - 1))
+                return t[n][W]
+            elif wt[n - 1] > W:
+                t[n][W] = knapsack(sack, wt, val, n - 1)
+                return t[n][W]
+
+        print(knapsack(sack, wt, val, n))
+
