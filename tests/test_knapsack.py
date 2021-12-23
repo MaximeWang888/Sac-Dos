@@ -139,10 +139,6 @@ class TestGreedyMedium:
 
 
     def test_solve_knapsack_best(self):
-        keys = list(get_medium_objects_dict2().keys())
-        values = list(get_medium_objects_dict2().values())
+        sack = Knapsack(50)
 
-        dico = dict(zip(keys,values))
-        sack = Knapsack(30)
-
-        print(solve_knapsack_best(sack, dico))
+        solve_knapsack_best(sack, get_medium_objects_dict())
