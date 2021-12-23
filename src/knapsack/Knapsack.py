@@ -37,7 +37,3 @@ class Knapsack:
                          + str(self.capacity)
 
         print(print_content)
-
-
-    def setCapa(self, capa):
-        self.capacity = capa

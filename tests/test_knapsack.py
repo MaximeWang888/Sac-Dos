@@ -2,7 +2,8 @@ import json
 import pytest
 
 from src.knapsack.Knapsack import Knapsack
-from src.knapsack.solve_kanpsack_greedy import solve_knapsack_greedy
+from src.knapsack.solve_knapsack_greedy import solve_knapsack_greedy
+from src.knapsack.solve_knapsack_best import solve_knapsack_best
 
 
 def get_small_objects_dict(capacity=60):
@@ -136,40 +137,12 @@ class TestGreedyMedium:
         if capacity > 5:
             assert "Oeil et Main de Vecna" in sack.content
 
-    def test_tset(self):
-        # driver code
-        val = []
-        wt = []
-        for value in list(get_medium_objects_dict2().values()):
-            val.append(value[0])
-            wt.append(value[1])
 
+    def test_solve_knapsack_best(self):
+        keys = list(get_medium_objects_dict2().keys())
+        values = list(get_medium_objects_dict2().values())
+
+        dico = dict(zip(keys,values))
         sack = Knapsack(30)
-        W = sack.capacity
-        n = len(val)
 
-        # We initialize the matrix with -1 at first.
-        t = [[-1 for i in range(W + 1)] for j in range(n + 1)]
-
-        def knapsack(sack, wt, val, n):
-            W = sack.capacity
-            # base conditions
-            if n == 0 or W == 0:
-                return 0
-            if t[n][W] != -1:
-                return t[n][W]
-
-            # choice diagram code
-            if wt[n - 1] <= W:
-                sack.setCapa(sack.capacity - wt[n-1])
-                t[n][W] = max(
-                    val[n - 1] + knapsack(
-                        sack, wt, val, n - 1),
-                    knapsack(sack, wt, val, n - 1))
-                return t[n][W]
-            elif wt[n - 1] > W:
-                t[n][W] = knapsack(sack, wt, val, n - 1)
-                return t[n][W]
-
-        print(knapsack(sack, wt, val, n))
-
+        print(solve_knapsack_best(sack, dico))
