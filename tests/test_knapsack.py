@@ -137,7 +137,7 @@ class TestGreedyMedium:
         if capacity > 5:
             assert "Oeil et Main de Vecna" in sack.content
 
-    @pytest.mark.parametrize("capacity", [1, 3, 5, 10, 50, 100, 1000, 10000])
+    @pytest.mark.parametrize("capacity", [0, 1, 10, 20, 30, 50, 75, 100, 300, 500, 800, 1000, 5000, 10000, 50000])
     def test_solve_knapsack_best(self, capacity):
         sack = Knapsack(capacity)
 

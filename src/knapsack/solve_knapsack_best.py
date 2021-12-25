@@ -1,7 +1,8 @@
 def solve_knapsack_best(sack, object_dict):
-    keys = object_dict.keys()
-    val = [value[0] for value in object_dict.values()]
-    wt = [weight[1] for weight in object_dict.values()]
+    sorted_objects_dict = dict(sorted(object_dict.items(), key=lambda x: x[1][0] / x[1][1]))
+    keys = sorted_objects_dict.keys()
+    val = [value[0] for value in sorted_objects_dict.values()]
+    wt = [weight[1] for weight in sorted_objects_dict.values()]
     W = sack.capacity
     M = W
     n = len(val)
@@ -18,12 +19,13 @@ def solve_knapsack_best(sack, object_dict):
     print("Selected Items: ")
 
     while n is not 0:
-        if t[n][W] is not t[n - 1][W] and W - wt[n-1] > 0:
-            contents_key[list(keys)[n - 1]] = (val[n - 1], wt[n - 1])
-            print("Item : " + str(list(keys)[n - 1]) + " with weight = " +
-                  str(wt[n - 1]) + " and value = " + str(val[n - 1]))
-            W = W - wt[n - 1]
-            isEmpty = False
+        if t[n][W] is not t[n - 1][W]:
+            if W - wt[n-1] >= 0:
+                contents_key[list(keys)[n - 1]] = (val[n - 1], wt[n - 1])
+                print("Item : " + str(list(keys)[n - 1]) + " with weight = " +
+                      str(wt[n - 1]) + " and value = " + str(val[n - 1]))
+                W = W - wt[n - 1]
+                isEmpty = False
 
         n = n - 1
 
