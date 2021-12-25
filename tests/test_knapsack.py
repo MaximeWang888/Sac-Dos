@@ -140,5 +140,5 @@ class TestGreedyMedium:
     @pytest.mark.parametrize("capacity", [0, 1, 10, 20, 30, 50, 75, 100, 300, 500, 800, 1000, 5000, 10000, 50000])
     def test_solve_knapsack_best(self, capacity):
         sack = Knapsack(capacity)
-
-        solve_knapsack_best(sack, get_medium_objects_dict())
+        objects_dict = get_medium_objects_dict()
+        solve_knapsack_best(sack, objects_dict)
