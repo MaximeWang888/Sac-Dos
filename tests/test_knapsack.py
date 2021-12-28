@@ -33,10 +33,12 @@ def get_medium_objects_dict():
         data = json.load(file)
     return data["stuff_dd"]
 
+
 def get_medium_objects_dict2():
     with open("../src/resouces/stuff2.json") as file:
         data = json.load(file)
     return data["stuff2"]
+
 
 class TestUtils:
     def test_print(self, capsys):
@@ -137,7 +139,7 @@ class TestGreedyMedium:
         if capacity > 5:
             assert "Oeil et Main de Vecna" in sack.content
 
-    @pytest.mark.parametrize("capacity", [0, 1, 10, 20, 30, 50, 75, 100, 300, 500, 800, 1000, 5000, 10000, 50000])
+    @pytest.mark.parametrize("capacity", [0, 1, 5, 10, 20, 30, 50, 75, 100, 300, 500, 800, 1000, 5000, 10000, 50000])
     def test_solve_knapsack_best(self, capacity):
         sack = Knapsack(capacity)
         objects_dict = get_medium_objects_dict()

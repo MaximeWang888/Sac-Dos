@@ -2,42 +2,39 @@ def solve_knapsack_best(sack, object_dict):
     keys = object_dict.keys()
     val = [value[0] for value in object_dict.values()]
     wt = [weight[1] for weight in object_dict.values()]
-    W = sack.capacity
-    M = W
+    sack_weight = sack.capacity
     n = len(val)
-    contents_key = {}
-    isEmpty = True
+    is_empty = True
 
     # We initialize the matrix with 0 at first.
-    t = [[0 for x in range(W + 1)] for x in range(n + 1)]
+    t = [[0 for _ in range(sack_weight + 1)] for _ in range(n + 1)]
 
-    print("\n\nWith a maximum capacity of: \t" + str(sack.capacity))
+    print("\n\nWith a maximum capacity of: \t" + str(sack_weight))
 
-    print("Maximum Value is: \t" + str(getBestValue(sack.capacity, wt, val, n, t)))
+    print("Maximum Value is: \t" + str(get_best_value(sack_weight, wt, val, n, t)))
 
     while n != 0:
-        if t[n][W] is not t[n - 1][W]:
-            contents_key[list(keys)[n - 1]] = (val[n - 1], wt[n - 1])
+        if t[n][sack_weight] is not t[n - 1][sack_weight]:
+            sack.content.append((list(keys)[n - 1], (val[n - 1], wt[n - 1])))
             print("Item : " + str(list(keys)[n - 1]) + " with weight = " +
                   str(wt[n - 1]) + " and value = " + str(val[n - 1]))
-            isEmpty = False
+            is_empty = False
 
-            W = W - wt[n - 1]
+            sack_weight -= wt[n - 1]
 
         n = n - 1
 
-    if isEmpty: print("No item was chosen in this bag with a maximum capacity of "
-                      + str(M) + ". Maybe with a higher capacity ...")
-
-    sack.content = contents_key
+    if is_empty:
+        print("No item was chosen in this bag with a maximum capacity of "
+              + str(sack_weight) + ". Maybe with a higher capacity ...")
 
     return sack
 
 
-def getBestValue(W, wt, val, n, t):
+def get_best_value(weight, wt, val, n, t):
     # Build table K[][] in bottom up manner
     for i in range(n + 1):
-        for w in range(W + 1):
+        for w in range(weight + 1):
             if i == 0 or w == 0:
                 t[i][w] = 0
             elif wt[i - 1] <= w:
@@ -45,4 +42,4 @@ def getBestValue(W, wt, val, n, t):
             else:
                 t[i][w] = t[i - 1][w]
 
-    return t[n][W]
+    return t[n][weight]
