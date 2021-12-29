@@ -13,6 +13,16 @@ def solve_knapsack_best(sack, object_dict):
 
     print("Maximum Value is: \t" + str(get_best_value(sack_weight, wt, val, n, t)))
 
+    is_empty, sack_weight = find_solution(is_empty, keys, n, sack, sack_weight, t, val, wt)
+
+    if is_empty:
+        print("No item was chosen in this bag with a maximum capacity of "
+              + str(sack_weight) + ". Maybe with a higher capacity ...")
+
+    return sack
+
+
+def find_solution(is_empty, keys, n, sack, sack_weight, t, val, wt):
     while n != 0:
         if t[n][sack_weight] is not t[n - 1][sack_weight]:
             sack.content.append((list(keys)[n - 1], (val[n - 1], wt[n - 1])))
@@ -23,12 +33,7 @@ def solve_knapsack_best(sack, object_dict):
             sack_weight -= wt[n - 1]
 
         n = n - 1
-
-    if is_empty:
-        print("No item was chosen in this bag with a maximum capacity of "
-              + str(sack_weight) + ". Maybe with a higher capacity ...")
-
-    return sack
+    return is_empty, sack_weight
 
 
 def get_best_value(weight, wt, val, n, t):
