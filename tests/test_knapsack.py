@@ -4,7 +4,7 @@ import pytest
 from src.knapsack.Knapsack import Knapsack
 from src.knapsack.solve_knapsack_greedy import solve_knapsack_greedy
 from src.knapsack.solve_knapsack_best import solve_knapsack_best
-
+from src.knapsack.solve_knapsack_optimal import solve_knapsack_optimal
 
 def get_small_objects_dict(capacity=60):
     small_objects_dict = {
@@ -144,3 +144,13 @@ class TestGreedyMedium:
         sack = Knapsack(capacity)
         objects_dict = get_medium_objects_dict()
         solve_knapsack_best(sack, objects_dict)
+        if capacity > 5:
+            assert "Oeil et Main de Vecna" in sack.content
+
+    @pytest.mark.parametrize("capacity", [6])
+    def test_solve_knapsack_optimal(self, capacity):
+        sack = Knapsack(capacity)
+        objects_dict = get_medium_objects_dict()
+        solve_knapsack_optimal(sack, objects_dict)
+        if capacity > 5:
+            assert "Oeil et Main de Vecna" in sack.content

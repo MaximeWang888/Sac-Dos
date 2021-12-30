@@ -25,7 +25,7 @@ def solve_knapsack_best(sack, object_dict):
 def find_solution(is_empty, keys, n, sack, sack_weight, t, val, wt):
     while n != 0:
         if t[n][sack_weight] is not t[n - 1][sack_weight]:
-            sack.content.append((list(keys)[n - 1], (val[n - 1], wt[n - 1])))
+            sack.content.append((list(keys)[n - 1]))
             print("Item : " + str(list(keys)[n - 1]) + " with weight = " +
                   str(wt[n - 1]) + " and value = " + str(val[n - 1]))
             is_empty = False
