@@ -1,24 +1,25 @@
+# ===================================================================#
+# -------------------------------------------------------------------#
+#                         Knapsack Problem                           #
+# -------------------------------------------------------------------#
+#                         Optimal Algorithm                          #
+# *******************************************************************#
+#                                                                    #
+#   V0.1       Linda Bessah, Maxime Wang  - 02/01/2022               #
+#                                                                    #
+# ===================================================================#
+
+
 def solve_knapsack_optimal(sack, object_dict):
     keys = list(object_dict.keys())
     values = [value[0] for value in object_dict.values()]
     weights = [weight[1] for weight in object_dict.values()]
     optimal_value, cell = get_optimal_value(keys, values, weights, sack.capacity, 0)
 
-    print("\n\nWith a maximum capacity of: \t" + str(sack.capacity))
-
-    print("Maximum Value is: \t" + str(optimal_value))
-
-    find_solution(cell, sack)
+    for item in cell.selected:
+        sack.content.append(item[0])
 
     return sack
-
-
-def find_solution(cell, sack):
-    for item in cell.selected:
-        print("Item : " + str(item[0]) + " with weight = " +
-              str(item[1][1]) + " and value = " + str(item[1][0]))
-        sack.content.append(item[0])
-    sack.capacity -= cell.total_weight
 
 
 def get_optimal_value(keys, values, weights, capacity, current_index):

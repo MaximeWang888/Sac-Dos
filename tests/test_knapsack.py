@@ -1,3 +1,15 @@
+# ===================================================================#
+# -------------------------------------------------------------------#
+#                         Knapsack Problem                           #
+# -------------------------------------------------------------------#
+#                              TESTS                                 #
+# *******************************************************************#
+#                                                                    #
+#   V0.1       Linda Bessah, Maxime Wang  - 02/01/2022               #
+#                                                                    #
+# ===================================================================#
+
+
 import json
 import pytest
 
@@ -5,6 +17,7 @@ from src.knapsack.Knapsack import Knapsack
 from src.knapsack.solve_knapsack_greedy import solve_knapsack_greedy
 from src.knapsack.solve_knapsack_best import solve_knapsack_best
 from src.knapsack.solve_knapsack_optimal import solve_knapsack_optimal
+
 
 def get_small_objects_dict(capacity=60):
     small_objects_dict = {
@@ -32,12 +45,6 @@ def get_medium_objects_dict():
     with open("../src/resouces/stuff_dd.json") as file:
         data = json.load(file)
     return data["stuff_dd"]
-
-
-def get_medium_objects_dict2():
-    with open("../src/resouces/stuff2.json") as file:
-        data = json.load(file)
-    return data["stuff2"]
 
 
 class TestUtils:
@@ -130,7 +137,7 @@ class TestGreedyMedium:
             assert "Oeil et Main de Vecna" in sack.content
 
     @pytest.mark.parametrize(
-        "capacity, weight, value",        [(1000000, 203653539, 20737), (100000000, 203671588, 1020746)])
+        "capacity, weight, value", [(1000000, 203653539, 20737), (100000000, 203671588, 1020746)])
     def test_solve_big(self, capacity, weight, value):
         sack = Knapsack(capacity)
         objects_dict = get_medium_objects_dict()
@@ -139,18 +146,20 @@ class TestGreedyMedium:
         if capacity > 5:
             assert "Oeil et Main de Vecna" in sack.content
 
-    @pytest.mark.parametrize("capacity", [0, 1, 5, 10, 20, 30, 50, 75, 100, 300, 500, 800, 1000, 5000, 10000, 50000])
+    @pytest.mark.parametrize("capacity", [0, 1, 3, 5, 10, 50, 100, 1000, 100000])
     def test_solve_knapsack_best(self, capacity):
         sack = Knapsack(capacity)
         objects_dict = get_medium_objects_dict()
-        solve_knapsack_best(sack, objects_dict)
+        sack = solve_knapsack_best(sack, objects_dict)
         if capacity > 5:
             assert "Oeil et Main de Vecna" in sack.content
+        sack.print_content(objects_dict)
 
     @pytest.mark.parametrize("capacity", [6])
     def test_solve_knapsack_optimal(self, capacity):
         sack = Knapsack(capacity)
         objects_dict = get_medium_objects_dict()
-        solve_knapsack_optimal(sack, objects_dict)
+        sack = solve_knapsack_optimal(sack, objects_dict)
         if capacity > 5:
             assert "Oeil et Main de Vecna" in sack.content
+        sack.print_content(objects_dict)
